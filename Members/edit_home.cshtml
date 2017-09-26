@@ -1,0 +1,59 @@
+﻿@section Scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+@{
+    Layout = "~/_editPagesLayout.cshtml";
+    Page.Title = "AWM | Edit Home Page";
+    Validation.RequireField("title", "You must enter a title");
+    var title = "";
+
+    if (IsPost && Validation.IsValid())
+    {
+        title = Request.Form["title"];
+        var db = Database.Open("EditPages");
+        db.Execute("INSERT INTO editHome (Title) VALUES (@0)", title);
+        //Response.Redirect("~/Movies");
+    }
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 text-center">
+        <h1>Welcome to the Edit Home Page.</h1>
+        @Html.ValidationSummary()
+        <form method="post">
+            <fieldset>
+                <legend>AWM Editor Information..</legend>
+                <p>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" value="@Request.Form["title"]" placeholder="Enter Title Text Here..." />
+                    <span id="testing">@Html.ValidationMessage("title")</span>
+                </p>
+                <p><input type="submit" name="buttonSubmit" value="Add Title" /></p>
+            </fieldset>
+        </form>
+    </div>
+</div><!--end of row-->
+
+
+<!--
+    <form method="post">
+    <p>
+        <label for="title" >
+            Enter the text below to edit AWM's Header...
+        </label> <br>
+        <textarea id="title" name="title"  @Validation.For("title") >
+            &lt;p&gt;@title&lt;/p&gt;
+
+
+        </textarea>
+        <script type="text/javascript">
+            CKEDITOR.replace( 'title' );
+        </script>
+    </p>
+    <p>
+        <input type="submit" class="login-btn btn-filled" />
+    </p>
+</form>
+-->

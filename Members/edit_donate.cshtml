@@ -1,0 +1,21 @@
+﻿@if ( Roles.IsUserInRole("admin")) {
+    <span id="loggedUser"> Welcome <b>@WebSecurity.CurrentUserName</b>! </span>
+}
+else {
+     Response.Redirect("~/AdminError");
+}
+@{
+    
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        
+    </body>
+</html>

@@ -1,0 +1,124 @@
+﻿@{  
+
+    ContactEdit ctEdit = new ContactEdit();
+    
+    Validation.RequireField("image", "Attemp to upload null/empty image. Please upload an image.");
+    Validation.RequireField("image_name", "You must enter the image title.");
+    var Brd_Mbr_Name = "";
+    var Brd_Mbr_Position = "";
+    var Brd_Mbr_Description = "";
+    var image_path = "";
+    WebImage  image = null;
+    var createdBy = WebSecurity.CurrentUserName;
+    var createDt = ctEdit.showCurrentDate();
+    if(WebSecurity.CurrentUserName == null){
+         createdBy = "guest";
+    }
+    else{
+         createdBy = WebSecurity.CurrentUserName;
+    }
+
+    if (IsPost)
+    {
+        Brd_Mbr_Name = Request.Form["Name"];
+        Brd_Mbr_Position = Request.Form["Position"];
+        Brd_Mbr_Description = Request.Form["Description"];
+
+        image = WebImage.GetImageFromRequest();
+        if(image != null){
+            //image_name = Path.GetFileName(image.FileName);
+            image_path = @"images\" + Path.GetFileName(image.FileName);
+            image.Save(@"~\" + image_path);
+            var db = Database.Open("EditPages");
+            var insertCommand = "INSERT INTO editBoardMember (Brd_Mbr_Name, Brd_Mbr_Position, Brd_Mbr_Description, image_path, createdBy, createDt) VALUES(@0, @1, @2, @3, @4, @5)";
+            db.Execute(insertCommand, Brd_Mbr_Name, Brd_Mbr_Position, Brd_Mbr_Description, image_path, createdBy, createDt);
+            Session["successUpload"] = "New Changes below have been uploaded to the AWM's database successfully.";
+        }
+
+    }
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Upload</title>
+    <link href="~/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css"></link>   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css"></link>   
+ <link href="https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css" />
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/calender_css/calendar.css">
+          
+<script src="~/js/bootstrap.min.js"  type="text/javascript"></script>
+
+    
+
+
+
+</head>
+<body>
+    <!--
+  <form action="" method="post" enctype="multipart/form-data">
+    <fieldset>
+      <legend> Upload Image </legend>
+      <label for="Image">Image</label>
+      <input type="file" name="Image" />
+      <br/>
+      <input type="submit" value="Upload" />
+    </fieldset>
+  </form>
+-->
+    @if (Session["successUpload"] != null) {
+          <div class="alert alert-success">
+             <p class="txt_confirm" style="color: #5cb85c !important; font-weight: bolder;">@Session["successUpload"].ToString()</p>
+          </div>
+          Session["successUpload"] = null;
+    }
+  
+    @if(image_path != ""){
+        <div class="result" >
+            <div class="col-sm-4" style="position:relative; border: outset 4px #5bc0de;">
+                        <div class="team-1-member" >
+                            <img alt="Kimberlyn Abbey" src="@image_path" alt="image" width="300" height="300" />
+
+                            <h2>@Brd_Mbr_Name</h2>
+                            <h5>@Brd_Mbr_Position</h5>
+                            <details>
+                                <summary>@Brd_Mbr_Name Background.</summary>
+                                <p class="space-top-small">
+                                    @Brd_Mbr_Description
+                                </p>
+                                
+                            </details>
+                        </div><!--end of team member-->
+                    </div>
+
+        </div>
+    <script>
+        $('.result').show();
+        setTimeout(function () {
+            $('.alert-success').fadeOut();
+            $('.result').fadeOut();
+        }, 10000);
+    </script>
+
+    }
+
+
+    <div id="calendar"></div>
+
+
+
+
+    <script src="~/assets/js/jquery.min.js"></script>
+
+    <script src="~/js/jquery.min.js"></script>
+   <script src="~/js/custom.js"></script>
+    <script type="text/javascript" src="~/calender_js/calendar.min.js"></script>
+</body>
+</html>

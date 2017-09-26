@@ -1,0 +1,21 @@
+﻿@{
+    WebSecurity.RequireAuthenticatedUser();
+
+    if (IsPost) {
+        // Verify the request was submitted by the user
+        AntiForgery.Validate();
+
+        // Log out of the current user context
+        WebSecurity.Logout();
+
+        // Redirect back to the return URL or homepage
+        var returnUrl = Href("~/Account/Login"); 
+        if (returnUrl.IsEmpty()) {
+        
+            returnUrl = Href("~/Account/Login"); 
+        }
+        //Context.RedirectLocal("~/Members/editpages.cshtml");
+    } else {
+        Response.Redirect("~/");
+    }
+}

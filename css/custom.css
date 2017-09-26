@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css?family=Bad+Script');
+
+#AWM_logo_header{
+    text-align: center;
+    margin:0 auto;
+    padding:5px 10px;
+}
+#inspire_header{
+    text-align: center !important;
+}
+
+.accomplishments, .aboutStory{
+    font-size:small;
+}
+
+.col-sm-3 >p{
+    font-size:small !important;
+}
+
+.txtUnderline{
+    text-decoration:underline;
+}
+
+.AWM_Landing_Header {
+  border-bottom: 1px solid #eeeeee;
+}
+
+
+.blog-snippet-3:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+.giveBack_h1 {
+  margin-bottom: 16px !important;
+}
+.giveBack_h1 {
+  color: #333333 !important;
+}
+.giveBack_em {
+  color: #e74c3c !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+}
+
+.givingBack_highlight{
+  color: #3f8ef7 !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+}
+
+.reduce_fa_icon{
+    font-size: 12px !important;
+}
+
+.reduce_font{
+    font-size: 12px !important;
+}
+
+.kindFont{
+    font-family: 'Bad Script', cursive;
+    font-size:larger;
+    font-weight:bolder;
+}
+
+.rgstr_login a{
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 0;
+    margin: 6px;
+    background-color: #b16d47;
+}
+
+.rgstr_login {
+    border-radius: 25px;
+    background-color: #798477;
+    margin: 6px;
+}
+
+.rgstr_logout a{
+    border-radius: 35px;
+            margin: 15px 0;
+            padding: 0;
+            margin: 6px;
+            background-color: #bbbbbb;
+        }
+.rgstr_logout {
+    border-radius: 25px;
+    background-color: #798477;
+}
+
+ #loginForm .validation-error {
+        display: block;
+        margin-left: 15px;
+    }
+
+
+    #loginForm .validation-summary-errors  {
+        display: inline;
+        list-style: none;
+        margin: 0;
+    }
+
+#testing{
+    color: #f00;
+    font-weight: bolder;
+}
+
+.txt_confrim{
+    color: #5cb85c !important;
+    font-weight:  bolder !important;
+}
+
+.confirmMessage{
+    font-weight: bolder;
+}
+
+.reduce-social-icons{
+    font-size: x-small !important;
+}
+
+.custom-sub{ 
+    font-size: 5px !important; 
+    color: rgba(255,255,255,0.3); 
+    position: relative; 
+    bottom: 10px;
+}
+
+.loggedUser{
+    color: #3f8ef7 !important;
+    font-weight: bolder !important;
+    display: inline !important;
+}
+
+/*
+.team-1-member >img{
+    border-radius:80%;
+}
+ */
+
+

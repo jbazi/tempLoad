@@ -1,0 +1,36 @@
+﻿@{
+    var db = Database.Open("EditPages");
+    var selectQueryString = "SELECT top 1 * FROM editHome ORDER BY Id";
+ }
+<!DOCTYPE html>
+<html>
+ <head>
+   <title>quick test</title>
+   <style>
+       table, th, td {
+         border: solid 1px #bbbbbb;
+         border-collapse: collapse;
+         padding: 2px;
+       }
+    </style>
+ </head>
+ <body>
+   <h1>Small Bakery Products</h1>
+   <table>
+       <thead>
+           <tr>
+               <th>Id</th>
+               <th>Title</th>
+           </tr>
+       </thead>
+       <tbody>
+           @foreach(var row in db.Query(selectQueryString)){
+            <tr>
+               <td>@row.Id</td>
+                   <td>@row.HeaderField</td>
+            </tr>
+           }
+       </tbody>
+   </table>
+ </body>
+</html>

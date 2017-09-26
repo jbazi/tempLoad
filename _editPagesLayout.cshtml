@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>@Page.Title</title>
+    <link href="~/css/flexslider.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/line-icons.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/elegant-icons.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/lightbox.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/theme.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <!-- Nav Menu - START...-->
+    <div class="nav-container">
+        <nav class="top-bar">
+            <div class="container">
+                <div class="row utility-menu">
+                    <div class="col-sm-12">
+                        <div class="utility-inner clearfix">
+                            <span class="alt-font"><i id="AWM_logo_header" class="icon icon_globe-2"></i><strong>AWM</strong> Admin Page</span>
+
+                                <span class="center-text" style="position: relative; margin-left: 30px;">Return To Edit Home</span>
+                            <div class="pull-right">
+                                <!--<span class="alt-font"> We Love,  We Inspire, And Promote HOPE</span>-->
+                                @if (Roles.IsUserInRole("admin"))
+                                {
+                                    <span id="loggedUser"> Welcome <b>@WebSecurity.CurrentUserName</b> <i class="fa fa-smile-o fa-1x"></i> </span>
+                                        <form id="logoutForm" action="~/Account/Logout" method="post" style="display: inline;">
+                                            @AntiForgery.GetHtml()
+                                            <span class="alt-font rgstr_logout">
+                                                <a class="text-white" href="javascript:document.getElementById('logoutForm').submit()" title="Click To Logout">Log out</a>
+                                            </span>
+                                        </form>
+                                }
+                                else
+                                {
+                                    Response.Redirect("~/AdminError");
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end of row-->
+                <div class="mobile-toggle">
+                    <i class="icon icon_menu"></i>
+                </div>
+
+            </div><!--end of container-->
+        </nav>
+    </div>
+    <!-- Nav Menu - END...-->
+
+    <div id="body" class="main-container">
+        <div class="container">
+            <h4 class="col-md-8 col-md-offset-2 text-center blink" style="color: #d9534f;"><strong>After making your changes below, please send an email to John to confirm and submit your changes.</strong></h4>
+            <br />
+            
+            @RenderSection("featured", required: false)
+            <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <details class="form-wrapper clearfix">
+                            <summary class="lead">Click here to send an email to John.</summary>
+                            <form method="post" action="~/emailSentToAdmin" class="form-contact clearfix">
+                                <div class="inputs-wrapper">
+                                    <input class="validate-required" type="text" placeholder="Your Name" name="customerName">
+                                    <input class="validate-required validate-email" type="text" name="customerEmail" placeholder="Your Email Address">
+                                    <textarea class="validate-required" name="customerRequest" placeholder="Your Message To John"></textarea>
+                                </div>
+                                <input type="submit" value="Send">
+                                <div class="form-success">
+                                    <span class="text-white">Message sent - Thanks for your enquiry</span>
+                                </div>
+                                <div class="form-error">
+                                    <span class="text-white">Please complete all fields correctly</span>
+                                </div>
+                            </form>
+                        </details>
+                    </div>
+                </div><!--end of row-->
+            @RenderBody()
+            <br />
+            
+        </div>
+    </div>
+    @RenderSection("Scripts", required: false)
+
+    <!--Scripts-->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery.blink.js"></script>
+    <script src="~/js/jquery.plugin.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.flexslider-min.js"></script>
+    <script src="~/js/smooth-scroll.min.js"></script>
+    <script src="~/js/skrollr.min.js"></script>
+    <script src="~/js/spectragram.min.js"></script>
+    <script src="~/js/scrollReveal.min.js"></script>
+    <script src="~/js/isotope.min.js"></script>
+    <script src="~/js/twitterFetcher_v10_min.js"></script>
+    <script src="~/js/lightbox.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="~/js/custom.js"></script>
+</body>
+</html>

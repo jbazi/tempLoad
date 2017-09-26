@@ -1,0 +1,19 @@
+﻿@section featured {
+    <section class="featured">
+        <form method="post" action="email-confirmation.cshtml" class="form-contact clearfix">
+            <div class="inputs-wrapper">
+                <input class="validate-required" type="text" placeholder="Your Name" name="customerName">
+                <input class="validate-required" type="tel" placeholder="Your Phone Number" name="customerPhone">
+                <input class="validate-required validate-email" type="text" name="customerEmail" placeholder="Your Email Address">
+                <textarea class="validate-required" name="customerRequest" placeholder="Your Message"></textarea>
+            </div>
+            <input type="submit" value="Send Message">
+            <div class="form-success">
+                <span class="text-white">Message sent - Thanks for your enquiry</span>
+            </div>
+            <div class="form-error">
+                <span class="text-white">Please complete all fields correctly</span>
+            </div>
+        </form>
+    </section>
+}

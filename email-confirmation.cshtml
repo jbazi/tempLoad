@@ -1,0 +1,222 @@
+﻿@{
+    var awm_primary_email = "bazi.the.developer@gmail.com";
+    var customerName = Request["customerName"];
+    var customerPhone = Request["customerPhone"]; 
+    var customerEmail = Request["customerEmail"]; 
+    var customerRequest = Request["customerRequest"];
+    var errorMessage = "";
+    var debuggingFlag = false;
+    try {
+        WebMail.SmtpServer = "smtp.gmail.com";
+        WebMail.SmtpPort = 587;
+        //WebMail.EnableSsl = true;
+        WebMail.UserName = "jmutabaz@gmail.com";
+        //WebMail.Password = "enter password here";
+        WebMail.From = "jmutabaz@gmail.com";
+
+        // Send email
+        WebMail.Send(to: awm_primary_email,
+            subject: "Incoming Message From  - " + customerName,
+            body:  "Client's Name: " +customerName + "<br /> " 
+                    + "Client's Email: " +customerEmail + "<br /> " 
+                    + "Client's Phone #: " +customerPhone  + "<br /> " 
+                    + "Client's Message: " +customerRequest  
+        );
+    }
+    catch (Exception ex ) {
+        errorMessage = ex.Message;
+    }
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <title>AWM | Contact</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" href="img/AWMlogo.png">
+        <link href="~/css/flexslider.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="~/css/line-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="~/css/elegant-icons.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="~/css/lightbox.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="~/css/theme.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="~/css/custom.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <!--[if gte IE 9]>
+        	<link rel="stylesheet" type="text/css" href="css/ie9.css" />
+		<![endif]-->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700%7CRaleway:700' rel='stylesheet' type='text/css'>
+        <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+    	<div class="loader">
+    		<div class="spinner">
+			  <div class="double-bounce1"></div>
+			  <div class="double-bounce2"></div>
+			</div>
+    	</div>
+				
+		<!-- Nav Menu - START...-->
+        <div class="nav-container">
+            <nav class="top-bar overlay-bar">
+                <div class="container">
+                    <div class="row utility-menu">
+                        <div class="col-sm-12">
+                            <div class="utility-inner clearfix">
+                                <span class="alt-font"><i id="AWM_logo_header" class="icon icon_globe-2"></i>Agape Women's Ministry</span>
+                                <div class="pull-right">
+                                    <span class="alt-font"> We Love,  We Inspire, And Promote HOPE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end of row-->
+
+                    <div class="row nav-menu">
+                        <div class="col-sm-3 col-md-2 columns">
+                            <a href="index.html">
+                                <img class="logo logo-light" alt="Logo" src="img/AWMlogo.png">
+                                <img class="logo logo-dark" alt="Logo" src="img/AWMlogo.png">
+                            </a>
+                        </div>
+                        <div class="col-sm-9 col-md-10 columns">
+                            <ul class="menu">
+                                <li class="active">
+                                    <a href="~/index.cshtml">Home</a>
+
+                                </li>
+                                <li class="has-dropdown">
+                                    <a href="#">About Us</a>
+                                    <ul class="subnav">
+                                        <li><a href="~/about.cshtml">Who We Are</a></li>
+                                        <li><a href="~/programs.cshtml">Programs</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="~/contact.cshtml">Contact Us</a>
+
+                                </li>
+                                <li>
+                                    <a href="#">Events</a>
+                                </li>
+                                <li>
+                                    <a href="~/givingback.cshtml">Giving Back</a>
+                                </li>
+                                <li>
+                                    <a href="~/donate.cshtml">Donate</a>
+                                </li>
+                                <li>
+                                    <a href="#">Gallery</a>
+                                </li>
+                            </ul>
+                            <ul class="social-icons text-right">
+                                <li>
+                                    <a href="https://twitter.com/LuvInspirinHOPE" target="_blank">
+                                        <i class="icon social_twitter"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="https://www.facebook.com/AgapeWomensMinistry" target="_blank">
+                                        <i class="icon social_facebook"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="https://www.youtube.com/channel/UCjshmbQ6vBn7TVv1njrTQHw" target="_blank">
+                                        <i class="icon social_youtube"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!--end of row-->
+                    <div class="mobile-toggle">
+                        <i class="icon icon_menu"></i>
+                    </div>
+                </div><!--end of container-->
+            </nav>
+        </div>
+        <!-- Nav Menu - END...-->
+
+		<div class="main-container">
+			<header class="page-header">
+				<div class="background-image-holder parallax-background">
+					<img class="background-image" alt="Background Image" src="img/hero18.jpg">
+				</div>
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<p class="text-white alt-font">Hello @customerName,</p> <i class="fa fa-smile-o fa-3x text-white"></i>
+							<h1 class="text-white">Your Email Has Been Sent Successfully!</h1>
+							<span class="text-white alt-font">We will contact you shortly. </span>
+						</div>
+					</div><!--end of row-->
+				</div><!--end of container-->
+			</header>
+			
+			<section class="contact-center">
+				<div class="container">
+                    <p>Confirming your recent request, <b>@customerName</b>.</p>
+    @if(errorMessage == ""){
+      <p>An email containing below message has been sent to @awm_primary_email</p>
+      <p class="confirmMessage"><em>@customerRequest</em></p>
+    }
+    else{
+        <p><b>The email was <em>not</em> sent.</b></p>
+        <p>Please check that the code in the ProcessRequest page has 
+           correct settings for the SMTP server name, a user name, 
+           a password, and a "from" address.
+        </p>
+        if(debuggingFlag){
+            <p>The following error was reported:</p>
+            <p><em>@errorMessage</em></p>
+        }
+    }
+				</div><!--end of container-->
+			</section>
+		</div>
+		<div class="footer-container">
+			<footer class="bg-primary short-2">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-10">
+                            <span class="text-white">© Copyright <span class="footerYear"> </span> Agape Women's Ministry.</span>
+							<span class="text-white"><a href="~/contact.cshtml">agapewomensministry@gmail.com</a></span>
+							<span class="text-white"><i class="fa fa-phone reduce_fa_icon"> </i> +(470) 242-7310 or <i class="fa fa-phone reduce_fa_icon" ></i> +(404) 386-6668.</span>
+						</div>
+					</div><!--end for row-->
+				</div><!--end of container-->
+				
+				<div class="contact-action">
+					<div class="align-vertical">
+                        <i class="fa fa-home fa-1.5x text-white"> </i>
+						<a href="~/index.cshtml" class="text-white"><span class="text-white">Return Back To Home <i class="icon arrow_right"></i></span></a>
+					</div>
+				</div>
+			</footer>
+		</div>
+				
+		<script src="~/js/jquery.min.js"></script>
+        <script src="~/js/jquery.plugin.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/js/jquery.flexslider-min.js"></script>
+        <script src="~/js/smooth-scroll.min.js"></script>
+        <script src="~/js/skrollr.min.js"></script>
+        <script src="~/js/spectragram.min.js"></script>
+        <script src="~/js/scrollReveal.min.js"></script>
+        <script src="~/js/isotope.min.js"></script>
+        <script src="~/js/twitterFetcher_v10_min.js"></script>
+        <script src="~/js/lightbox.min.js"></script>
+        <script src="~/js/jquery.countdown.min.js"></script>
+        <script src="~/js/scripts.js"></script>
+    </body>
+</html>
+				

@@ -1,0 +1,259 @@
+﻿
+@{
+    Layout = "~/_editPagesLayout.cshtml";
+    Page.Title = "Edit Home";
+
+    ContactEdit ctEdit = new ContactEdit();
+    
+    Validation.RequireField("image", "Attemp to upload null/empty image. Please upload an image.");
+    Validation.RequireField("image_name", "You must enter the image title.");
+    var Brd_Mbr_Name = "";
+    var Brd_Mbr_Position = "";
+    var Brd_Mbr_Description = "";
+    var image_path = "";
+    WebImage  image = null;
+    var createdBy = WebSecurity.CurrentUserName;
+    var createDt = ctEdit.showCurrentDate();
+    if(WebSecurity.CurrentUserName == null){
+         createdBy = "guest";
+    }
+    else{
+         createdBy = WebSecurity.CurrentUserName;
+    }
+
+    if (IsPost)
+    {
+        Brd_Mbr_Name = Request.Form["Name"];
+        Brd_Mbr_Position = Request.Form["Position"];
+        Brd_Mbr_Description = Request.Form["Description"];
+
+        image = WebImage.GetImageFromRequest();
+        if(image != null){
+            //image_name = Path.GetFileName(image.FileName);
+            image_path = @"images\" + Path.GetFileName(image.FileName);
+            image.Save(@"~\" + image_path);
+            var db = Database.Open("EditPages");
+            var insertCommand = "INSERT INTO editBoardMember (Brd_Mbr_Name, Brd_Mbr_Position, Brd_Mbr_Description, image_path, createdBy, createDt) VALUES(@0, @1, @2, @3, @4, @5)";
+            db.Execute(insertCommand, Brd_Mbr_Name, Brd_Mbr_Position, Brd_Mbr_Description, image_path, createdBy, createDt);
+            Session["successUpload"] = "New Changes below have been uploaded to the AWM's database successfully.";
+        }
+
+    }
+   
+}
+
+<div class="row">
+        @if (Session["successUpload"] != null) {
+          <div class="db-alert alert alert-success">
+             <p class="txt_confirm" style="color: #5cb85c !important; font-weight: bolder;">@Session["successUpload"].ToString()</p>
+          </div>
+          Session["successUpload"] = null;
+    }
+</div>
+
+<div class="row">     
+         @if(image_path != ""){
+        <div class="db_result" >
+            <div class="col-sm-4" style="position:relative; border: outset 4px #5bc0de;">
+                        <div class="team-1-member" >
+                            <img alt="Kimberlyn Abbey" src="~/@image_path" alt="image" width="300" height="300" />
+
+                            <h2>@Brd_Mbr_Name</h2>
+                            <h5>@Brd_Mbr_Position</h5>
+                            <details>
+                                <summary>@Brd_Mbr_Name Background.</summary>
+                                <p class="space-top-small">
+                                    @Brd_Mbr_Description
+                                </p>
+                                
+                            </details>
+                        </div><!--end of team member-->
+                    </div>
+
+        </div>
+
+    }
+
+    <form>
+        <fieldset>
+            <legend>Create New Board Member</legend>
+            <label for="newBrdImg"> <strong>Upload Image:</strong></label>
+            <input type="file" accept="image/*" name="newBrdImg" /><br>
+            <label for="newBrdName"><strong>New Board Member Name:</strong></label>
+            &ensp;<input type="text" name="newBrdName" placeholder="Enter New Board Member's new name" /><br>
+            <label for="newBrdPstn"><strong>Board Member Position:</strong></label>
+            &ensp;&ensp;&ensp;&ensp;<input type="text" name="newBrdPstn" placeholder="Enter New Board Member's new position" /><br>
+            <textarea rows="4" cols="45" name="Description" placeholder="Enter new Board Member's new description "></textarea>
+        </fieldset>
+        
+
+    </form>
+
+        <!--Team...START-->
+        <section class="team-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <i class="fa fa-users fa-3x" ></i>
+                        <h1>Meet Our Team</h1>
+                    </div>
+                </div><!--end of row-->
+                <div class="row space-bottom-large">
+                    <div class="col-sm-4">
+                        <div class="team-1-member">
+                            <img alt="Kimberlyn Abbey" src="~/img/kim.png">
+                            <h2>Kimberlyn Abbey</h2>
+                            <h5>Founder &amp; CEO</h5>
+                            <details>
+                                <summary>Kim's Background.</summary>
+                                <p class="space-top-small">
+                                    In 1989, Liberia became engulfed in a civil war that would last 14 years.
+                                    By the grace of God, she was able to escape the war in Liberia and became a refugee in Ghana, and Guinea before repatriating to the U.S permanently.
+                                    The conditions were so horrific when she fled that she vowed never to go back.
+                                    That is until she had a chance to go back home after 24 years.
+                                    What she saw completely humbled her and broke every preconceived idea she had created.
+                                    God placed a desire in her heart to help the people that she left behind.
+                                    The girls and women that Agape is assisting could have easily been Kim or her sisters.
+                                    The education that she was privileged to receive has been a blessing and cannot imagine the price that these girls often pay just to try and get an education.
+                                    Some of them have resolved to selling themselves and their dignity just to survive and make money for their children, their parents, or their siblings.
+                                    God has laid their needs on her heart and she is leading the effort to bring hope to their lives just as she have received hope in her life.
+                                    She and her husband Daniel are passionate about giving back and helping those in need.
+                                    With strong Christian family values, Kim and Daniel serve in the Connections Ministry at their church in Norcross, GA., and are strong supporters of the work of the Gospel.
+                                    They are blessed with one son.
+                                </p>
+                                
+                            </details>
+                        </div><!--end of team member-->
+                        <div class="editTeamMember">
+                                </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="team-1-member">
+                            <img alt="Daniel Abbey" src="~/img/daniel.png">
+                            <h2>Daniel Abbey</h2>
+                            <h5>Board Chair</h5>
+                            <details>
+                                <summary>Daniel's Background.</summary>
+                                <p class="space-top-small">
+                                    Daniel Abbey is the Director of Network Engineering at Cox Enterprises Inc.
+                                    As Director of Network Engineering, he is responsible for the strategic planning, implementation and maintenance of Cox Enterprises Inc. and Cox Media  Group’s data and information security network.
+                                    Cox Enterprises is a privately held American communications, media and automotive services company with revenues of over $17 billion and more than 55,000 employees.
+                                    Daniel joined Cox in 2011 as Network Engineering Manager.
+                                    In 2013 he was promoted to Sr. Network Engineering Manager, and subsequently promoted to director in 2014. Prior to joining Cox, he worked in several senior IT roles at Norfolk Southern Railway, Accenture LLC, and ITC^Deltacom in Atlanta, Georgia.
+                                    Daniel was born and raised in Monrovia, Liberia, where he completed his high school education and started post-secondary training.
+                                    He held several IT positions in Liberia before coming to the US; namely, Sr. Computer Programmer at the Central Bank of Liberia, Systems Administrator at Mobil Inc., Liberia and Sr. Electronic Data Processing Officer at UNICEF, Liberia.
+                                    During his time at UNICEF, he had the privilege of working in the Ivory Coast and Sierra Leone before coming to the US as an international student in December 1995.
+                                    He holds a B.A degree in Telecommunications Management from DeVry University and an MBA in Management of Technology from Georgia Institute of Technology.
+                                    His post-secondary education also includes several professional IT certifications and a diploma in Computer Programming and Electronic Data Processing from the West African Computer Science Institute (WACSI) in Accra, Ghana.
+                                    He enjoys spending his spare time with family and volunteering at church. He and his wife are active members of the Connections Ministry at their local church.
+                                </p>
+                                
+                            </details>
+                        </div><!--end of team member-->
+                        <div class="editTeamMember">
+                                </div>
+                      
+                    </div>
+                    <br />
+                    <div class="col-sm-4">
+                        <div class="team-1-member">
+                            <img alt="Kaisma Penn-Titley" src="~/img/kaisma.png">
+                            <h2>Kaisma Penn-Titley</h2>
+                            <h5>Secretary</h5>
+                            <details>
+                                <summary>Kaisma's Background.</summary>
+                                <p class="space-top-small">
+                                    Kaisma was born and raised in the British Virgin Islands.
+                                    An alumna of Georgia College & State University, she now resides in the Atlanta area with her husband and three children.
+                                    Kaisma and  her family are members of Victory World Church where they faithfully serve.
+                                </p>
+                            </details>
+                        </div>
+                        <!--end of team member-->
+                        <div class="editTeamMember">
+                                </div>
+                    </div>
+                    
+                </div>
+                <div class="row space-bottom-large">
+                    <div class="col-sm-4">
+                        <div class="team-1-member">
+                            <img alt="Marilyn Luke Ure" src="~/img/maryln.png">
+                            <h2>Marilyn Luke Urey</h2>
+                            <h5>Board Advisor</h5>
+                            <details>
+                                <summary>Marilyn's Background.</summary>
+                                <p class="space-top-small">
+                                    Marilyn has worked in various capacities in Liberia. She worked as a nurse at LAMCO   Hospital in Buchanan between March 1984 through May 1986, then with the United Nations Development Programme (UNDP) from June 1986 through November 1991 prior to leaving the country in 1990 due to the civil war.
+                                    During her years away from Liberia, Marilyn worked at Children's Hospital of Wisconsin in Milwaukee, Wisconsin for the next 21 years. Upon her return to Liberia in 2011, she worked for Population Services International as the Sexual & Reproductive Health Program Manager for 4 years.
+                                    She currently works in the US with a private faith-based organization.
+                                </p>
+                            </details>
+                        </div><!--end of team member-->
+                        <div class="editTeamMember">
+                                </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="team-1-member">
+                            <img alt="Edwina Morgan Forh" src="~/img/edwin.png">
+                            <h2>Edwina Morgan Forh</h2>
+                            <h5>Partner</h5>
+                            <details>
+                                <summary>Edwina's Background.</summary>
+                                <p class="space-top-small">
+                                    Edwina Morgan Forh is a corporate professional with over 20 years of   sales, marketing, and business experience under her belt. She has worked   and contracted in various market segments both commercial and federal.   In addition to serving as VP of Operations for The Forh Group, and Founder of The City of   Hope International Projects, Edwina currently works as a Certified Information Systems Auditor for a Fortune 100 Company.
+                                    Edwina believes that success comes by living life on purpose and having the necessary tools to succeed. She believes in acting now, getting results, staying accountable, being persistent, living a life of integrity, and making life count by paying it forward and giving back. There are no words to express the joy that comes from helping others less fortunate. Edwina uses a written goal and roadmap, unshakeable focus and faith, zero tolerance for procrastination, a healthy ambition to be better than yesterday, extreme positivity, and an insatiable drive to succeed.
+                                    As a firm believer in education and continual personal development, Edwina earned a Biomedical Research Degree from the University of Maryland at Baltimore School of Medicine, and is currently in pursuit of an Information Systems Engineering Degree with emphasis in Cybersecurity from the Johns Hopkins University School of Engineering.
+                                </p>
+                            </details>
+                        </div><!--end of team member-->
+                        <div class="editTeamMember">
+                                </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="team-1-member">
+                            <img alt="Ayele Ajavon" src="~/img/ayele.png">
+                            <h2>Ayele Ajavon</h2>
+                            <h5>Partner</h5>
+                            <details>
+                                <summary>Ayele's Background.</summary>
+                                <p class="space-top-small">
+                                    A native born of Monrovia, Liberia, Ayele R. Ajavon has spent much of   her life in   the United States. With more than sixteen years of Human   Resources experience, he has held management positions within her   profession and has worked with various Fortune 500 companies.
+                                    Her passion and drive to help others has been her sustaining force within her career and has also been the inspiration in making a difference within the community and most importantly in the lives of our youth. As a wife and a mother of four, Ayele understands and promotes the importance of guidance and structure that is needed in their young lives. She also understands the impact education has in seeing dreams achieved.
+                                    Having obtained her Masters of Business Administration while raising her family; she continues her pursuit of higher education as she works towards her Doctorate of Business Administration, at Walden University all in efforts to be that example to her children and the children of the community.
+                                    She believes that there is certain level of accountability we as adults have in promoting the betterment of our communities; and that entails empowering, motivating, and inspiring our youth to reach their highest potential possible.
+                                </p>
+                            </details>
+                        </div><!--end of team member-->
+                        <div class="editTeamMember">
+                                </div>
+                    </div>
+                </div>
+                <div class="row space-bottom-large">
+                    
+                    <div class="col-sm-4">
+                        <div class="team-1-member">
+                            <img alt="Cy Forh" src="~/img/cy.png">
+                            <h2>Cy Forh</h2>
+                            <h5>Partner</h5>
+                            <details>
+                                <summary>Cy's Background.</summary>
+                                <p class="space-top-small">
+                                    Cyrenius N. Forh, Jr (Cy as he is affectionately called by many) is one of the most powerful motivational / inspirational speakers on the planet. He's the President and CEO of The Forh Group, LLC, a Management Consultancy firm that provides Business Consulting, Risk Management, Staffing Solutions, and Executive Coaching/Training for fortune 100 companies and nonprofit organizations.
+                                    Cy is also an ordained Pastor and Executive Director of Ministry Operations at New Birth Church, California (under the auspices of Bishop C. Carl Smith), overseeing two campuses, 300 volunteer who serve 3500 member weekly. Cy is also the President of the International Faith-based Coalition, West Coast, USA. With over 20 years of ministerial experience and business leadership acumen, Cy is the consummate servant and community leader, giving voice to public engagement and moral responsibility. With clarity he knows that his life assignment is to empower people to live a life by God’s design, full of power and purpose, and infuse the transformation of lives from ordinary to extraordinary, through the application of practical personal development regimented strategies. He believes that greatness is not given to the few, but is the duty of all. He is also a prolific writer and published author of books on Winning, Leadership and Vision.
+                                    In addition to Cy’s effective leadership, ebullient oratorical abilities and entrepreneurial successes, he is an honored father and loving husband who firmly believes that his Christian values are the foundational strength to who he is. His love for people has kept his doors opened to many, as the place of truth and positive change. Cy and his wife Edwina are exceptional mentors who believe that in order to impact lives, one’s life must been impacted to the place of self-mastery--For only then can one teach another to rise above the norm. Together, they are a team whose mission is to Make Life Count!!!
+                                </p>
+                            </details>
+                        </div><!--end of team member-->
+                        <div class="editTeamMember">
+                                </div>
+                    </div>
+                </div>
+
+                <!--end of row-->
+            </div><!--end of container-->
+        </section>
+        <!--Team...END-->
+
+</div><!--end of row-->
